@@ -8,6 +8,7 @@ const pool = new pg.Pool();
 
 const app = express();
 const port = process.env.PORT || 3333;
+const db = require('./queries');
 
 app.use(bodyParser.json());
 app.use(bodyParser.raw({ type: "application/vnd.custom-type" }));
@@ -21,3 +22,7 @@ app.get("/", async (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
+
+app.get('/preguntas', db.getPreguntas)
+app.get('/preguntas/:id', db.getPreguntaPorId)
+app.post('/crearUsuario', db.createUsuario)
